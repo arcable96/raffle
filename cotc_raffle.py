@@ -2,27 +2,13 @@
 import streamlit as st
 import numpy as np
 import random
-
+from save_names import load_tickets, save_tickets
 
 st.title("Raffle Drawer")
 
 # Initial list of entries
 if "tickets" not in st.session_state:
-    st.session_state.tickets = {
-                # "Marcus": 1,
-                # "James": 1,
-                # "Louis": 1,
-                # "Richard": 1,
-                # "Callum": 1,
-                # "Roger": 1,
-                # "Curtis": 1,
-                # "Nick": 1,
-                # "George": 1,
-                # "Hugo": 1,
-                # "Harry": 1,
-                # "Carl": 1,
-                # "Michael": 1
-            }
+    st.session_state.tickets = load_tickets()
 
 # Add/edit entry
 st.subheader("Add or edit entry")
@@ -31,6 +17,7 @@ tickets = st.number_input("Tickets", min_value=1, step=1)
 
 if st.button("Add/update"):
     st.session_state.tickets[name] = tickets
+    save_tickets(st.session_state.tickets)
 
 # Remove entry
 st.subheader("Remove entry")
@@ -38,6 +25,7 @@ remove_name = st.selectbox(
                 "Select name",
                 list(st.session_state.tickets.keys())
                 )
+                save_tickets(st.session_state.tickets)
 
 if st.button("Remove"):
     del st.session_state.tickets[remove_name]
