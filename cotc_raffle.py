@@ -25,10 +25,9 @@ remove_name = st.selectbox(
                 "Select name",
                 list(st.session_state.tickets.keys())
                 )
-                save_tickets(st.session_state.tickets)
-
 if st.button("Remove"):
     del st.session_state.tickets[remove_name]
+    save_tickets(st.session_state.tickets)
 
 # Display entries
 st.subheader("List of participants:")
